@@ -1,0 +1,44 @@
+# sbard
+#R Programming Assignment 2
+
+
+##Overall Description of Function
+##First Function creates a special "vector" containing
+##set the value of the vector
+##get the value of the vector
+##set the value of the mean
+##get the value of the mean
+
+makeCacheMatrix <- function(x = matrix()) {
+    i <- NULL
+    set <- function(y) {
+        x <<- y
+        i <<- NULL
+    }
+    get <- function() x
+    setinverse <- function(inv) i <<- inv
+    getinverse <- function() i
+    list(
+        set = set,
+        get = get,
+        setinverse = setinverse,
+        getinverse = getinverse
+    )
+}
+
+##Function calculates the mean of the special "vector"
+##First checks to see if the mean has been calculated
+##If calculated already computation is skipped
+##If not calculated mean value is set in the cache via setmean function
+
+cacheSolve <- function(x, ...) {
+    i <- x$getinverse()
+    if(!is.null(i)) {
+        message("getting cached data")
+        return(i)
+    }
+    m <- x$get()
+    i <- solve(m, ...)
+    x$setinverse(i)
+    i
+}
