@@ -10,19 +10,19 @@
 ##get the value of the mean
 
 makeCacheMatrix <- function(x = matrix()) {
-    i <- NULL
+    a <- NULL
     set <- function(y) {
         x <<- y
-        i <<- NULL
+        a <<- NULL
     }
     get <- function() x
-    setinverse <- function(inv) i <<- inv
-    getinverse <- function() i
+    setinv <- function(inv) a <<- inv
+    getinv <- function() a
     list(
         set = set,
         get = get,
-        setinverse = setinverse,
-        getinverse = getinverse
+        setinv = setinv,
+        getinv = getinv
     )
 }
 
@@ -32,13 +32,13 @@ makeCacheMatrix <- function(x = matrix()) {
 ##If not calculated mean value is set in the cache via setmean function
 
 cacheSolve <- function(x, ...) {
-    i <- x$getinverse()
-    if(!is.null(i)) {
+    i <- x$getinv()
+    if(!is.null(a)) {
         message("getting cached data")
-        return(i)
+        return(a)
     }
     m <- x$get()
-    i <- solve(m, ...)
-    x$setinverse(i)
-    i
+    a <- solve(m, ...)
+    x$setinv(a)
+    a
 }
